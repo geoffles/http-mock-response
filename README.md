@@ -31,6 +31,7 @@ describe('Status Service', () => {
 
     getTestBed().compileComponents().then(() => {
           HttpMockResponse.mockHttpCalls(mockBackend, [
+            HttpMockResponse.withBody({svcurl:"http://svcs/"}, connection => /\/config$/.test(connection.request.url)),
             HttpMockResponse.withBody({status:"submitted"})
         ]);
 
@@ -46,6 +47,7 @@ describe('Status Service', () => {
   });
 });
 ```
+You can provide multiple responses with a predicate to test for a match. Only the first match is used. Ommiting the predicate means that response will always be used if there are no earlier matches (in order of appearance).
 
 Your service might look like:
 
